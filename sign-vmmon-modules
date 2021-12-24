@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for modfile in $(dirname $(modinfo -n vmmon))/*.ko; do
+  echo "Signing $modfile"
+  /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha512 \
+                                /var/lib/shim-signed/mok/MOK.priv \
+                                /var/lib/shim-signed/mok/MOK.der "$modfile"
+done
